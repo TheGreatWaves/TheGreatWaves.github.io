@@ -1,0 +1,8 @@
+{{ define "main" }}
+{{ $asset := resources.Get "img/pfp.jpg" }}
+{{ $img := $asset.Fit "600x400" }}
+<div class="flex flex-col h-screen w-screen justify-center items-center">
+  <img class="mx-auto translate-y-[1rem] w-40 h-40 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="{{ $img.RelPermalink }}" alt="Bordered avatar">
+  <p class="text-3xl -translate-y-[1rem] text-bold font-fira">TheGreatWaves</p>
+</div>
+{{ end }}
