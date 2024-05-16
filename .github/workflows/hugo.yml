@@ -50,6 +50,8 @@ jobs:
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Install dependency
         run: "npm install --save-dev tailwind-scrollbar"
+      - name: Transpile Tailwind
+        run: "npm run build"
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
