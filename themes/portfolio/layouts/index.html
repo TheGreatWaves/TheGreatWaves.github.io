@@ -2,7 +2,16 @@
 {{ $asset := resources.Get "img/pfp.jpg" }}
 {{ $img := $asset.Fit "600x400" }}
 <div class="flex flex-col h-screen w-screen justify-center items-center">
-  <img class="mx-auto translate-y-[1rem] w-40 h-40 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="{{ $img.RelPermalink }}" alt="Bordered avatar">
-  <p class="text-3xl -translate-y-[1rem] text-bold font-fira">TheGreatWaves</p>
+  <img class="mx-auto translate-y-[0rem] w-40 h-40 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="{{ $img.RelPermalink }}" alt="Bordered avatar">
+  <p class="text-3xl -translate-y-[3rem] text-bold font-fira">TheGreatWaves</p>
+  <div class="flex flex-row gap-8">
+    <a href="https://github.com/TheGreatWaves" target="_blank" class="hover:text-[#9399b2] -translate-y-[4rem]">
+      <i class="fa fa-github" style="font-size:48px;"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/ochawin-apichattakul-0a5539309/" target="_blank" class="hover:text-[#9399b2] -translate-y-[4rem]">
+      <i class="fa fa-linkedin-square inherit" style="font-size:48px;"></i>
+    </a>
+  </div>
+
 </div>
 {{ end }}
