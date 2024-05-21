@@ -3,11 +3,11 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body class="bg-[#1e1e2e] prose">
+<body class="bg-gradient-to-r from-[#1e1e2e] via-[#313244] to-[#1e1e2e] prose overflow-y-hidden">
   <header>
     {{ partial "header.html" . }}
   </header>
-  <main class="max-h-screen w-screen overflow-x-hidden overflow-y-scroll snap snap-y snap-mandatory scrollbar scrollbar-thumb-[#585b70] scrollbar-thumb-rounded">
+  <main class="max-h-screen w-screen overflow-x-hidden overflow-y-scroll no-scrollbar snap snap-y snap-mandatory scrollbar scrollbar-thumb-[#585b70] scrollbar-thumb-rounded">
     {{ block "main" . }}{{ end }}
   </main>
   <footer>
