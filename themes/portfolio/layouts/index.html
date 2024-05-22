@@ -18,9 +18,9 @@
 
 <!--  About me -->
 <section class="flex w-screen h-screen snap-start items-start flex-col">
-  <div class="px-64 h-1/4 w-screen flex flex-row bg-gradient-to-r from-[#45475a] via-[#585b70] to-[#45475a]">
+  <div class="px-64 h-auto w-screen flex flex-row bg-gradient-to-r from-[#45475a] via-[#585b70] to-[#45475a]">
     <div class="flex w-1/3 h-full px-16 items-center justify-center">
-      <p class="text-[#cdd6f4] text-3xl">About Me</p>
+      <p class="text-[#cdd6f4] text-4xl">About Me</p>
     </div>
     <div class="flex w-2/3 h-full px-12 items-center justify-start ml-16">
       <p class="text-[#cdd6f4] prose-lg">
@@ -29,4 +29,31 @@
     </div>
   </div>
 </section>
+
+<!--  Projects -->
+<section class="flex w-screen h-screen snap-start items-center flex-col gap-8 pb-8">
+  <!-- Top bar -->
+  <div class="px-64 h-auto w-screen flex flex-row bg-gradient-to-r from-[#45475a] via-[#585b70] to-[#45475a]">
+    <div class="flex w-1/3 h-full px-16 items-center justify-center">
+      <p class="text-[#cdd6f4] text-4xl">Projects</p>
+    </div>
+    <div class="flex w-2/3 h-full px-60 items-center justify-start ml-16">
+      <p class="text-[#cdd6f4] prose-lg">My favorite projects ~</p>
+    </div>
+  </div>
+
+  <!-- Container for projects -->
+  <div class="grid grid-cols-2 gap-8 w-3/5 h-full">
+    {{ $taxo := "favorited" }}
+    {{ with ($.Site.GetPage (printf "/%s" $taxo)) }}
+      {{ range .Pages }}
+        <div class="rounded ring-2 ring-gray-300 p-16 w-auto h-auto bg-[#585b70]">
+          <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+        </div>
+      {{ end }}
+    {{ end }}
+  </div>
+
+</section>
+
 {{ end }}
