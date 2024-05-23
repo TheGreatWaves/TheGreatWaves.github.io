@@ -7,9 +7,16 @@
   <header>
     {{ partial "header.html" . }}
   </header>
-  <main class="max-h-screen w-screen overflow-x-hidden overflow-y-scroll no-scrollbar snap snap-y snap-mandatory scrollbar scrollbar-thumb-[#585b70] scrollbar-thumb-rounded">
+  {{ if .IsHome }}
+    <main class="max-h-screen w-screen overflow-x-hidden overflow-y-scroll no-scrollbar snap snap-y snap-mandatory scrollbar scrollbar-thumb-[#585b70] scrollbar-thumb-rounded">
+      {{ block "main" . }}{{ end }}
+    </main>
+  {{ else }}
+    <main class="w-screen">
     {{ block "main" . }}{{ end }}
-  </main>
+    </main>
+  {{ end }}
+
   <footer>
     {{ partial "footer.html" . }}
   </footer>
