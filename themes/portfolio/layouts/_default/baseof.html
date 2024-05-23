@@ -3,7 +3,7 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body class="bg-gradient-to-r from-[#1e1e2e] via-[#313244] to-[#1e1e2e] prose overflow-y-hidden">
+<body class="bg-gradient-to-r from-[#1e1e2e] via-[#313244] to-[#1e1e2e] {{ if .IsHome }} prose {{ end }} overflow-y-hidden">
   <header>
     {{ partial "header.html" . }}
   </header>
