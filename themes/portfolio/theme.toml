@@ -5,7 +5,13 @@ description = 'Theme description'
 
 
 # Taxonomy terms
+
+[taxonomies]
+  tag = "tags"
+  term = "terms"
+
 tags = ['favorited']
+
 # features = ['some', 'awesome', 'features']
 
 # If the theme has multiple authors
