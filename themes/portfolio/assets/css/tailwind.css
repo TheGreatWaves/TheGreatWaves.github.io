@@ -42,3 +42,9 @@ a:active {
     /* Firefox */
   }
 }
+
+body {
+  /* All your regular code including overflow-x: hidden; */
+  overflow-x: hidden;
+  position: relative;
+}

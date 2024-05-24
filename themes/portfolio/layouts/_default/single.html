@@ -1,6 +1,6 @@
 {{ define "main" }}
-<div class="px-72">
-  <div class="min-h-screen bg-[#313244] px-16 pt-1">
+<div class="flex justify-center">
+  <div class="min-h-screen w-full lg:w-[65%] bg-[#313244] px-16 pt-1">
     <p class="prose text-[#cdd6f4] text-5xl mt-6 mb-2">{{ .Title }}</p>
 
     {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
@@ -15,15 +15,14 @@
     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
 
     {{ if in .Params.tags "wip" }}
-    <div class="flex grow w-full justify-center items-center">
-      <p class="text-5xl">This page is currently under construction.</p>
-    </div>
+      <div class="flex grow w-full justify-center items-center">
+        <p class="prose max-w-none text-5xl">This page is currently under construction.</p>
+      </div>
     {{ else }}
-      <div class="prose max-w-none w-full h-full prose-headings:mb-0 prose-headings:text-4xl prose-headings:underline prose-headings:font-normal prose-headings:text-[#cdd6f4]">
+      <div class="prose overflow-x-hidden max-w-screen w-full prose-headings:mb-0 prose-headings:text-4xl prose-headings:underline prose-headings:font-normal prose-headings:text-[#cdd6f4]">
         {{.Content}}
       </div>
     {{ end }}
-
   </div>
 </div>
 {{ end }}

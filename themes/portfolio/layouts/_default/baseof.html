@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="{{ or site.Language.LanguageCode site.Language.Lang }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
-<head>
-  {{ partial "head.html" . }}
-</head>
-<body class="bg-gradient-to-r from-[#1e1e2e] via-[#313244] to-[#1e1e2e] {{ if .IsHome }} prose {{ end }} overflow-y-hidden">
-  <header>
-    {{ partial "header.html" . }}
-  </header>
-  {{ if .IsHome }}
-    <main class="max-h-screen w-screen overflow-x-hidden overflow-y-scroll no-scrollbar snap snap-y snap-mandatory scrollbar scrollbar-thumb-[#585b70] scrollbar-thumb-rounded">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="bg-gradient-to-r from-[#1e1e2e] via-[#313244] to-[#1e1e2e] {{ if .IsHome }} prose {{ end }} {{ if .IsHome }} overflow-y-hidden {{ end }}">
+    <header>
+      {{ partial "header.html" . }}
+    </header>
+    {{ if .IsHome }}
+      <main class="max-h-screen w-screen overflow-x-hidden overflow-y-scroll no-scrollbar snap snap-y snap-mandatory scrollbar scrollbar-thumb-[#585b70] scrollbar-thumb-rounded">
+        {{ block "main" . }}{{ end }}
+      </main>
+    {{ else }}
+      <main class="no-scrollbar w-screen overflow-x-hidden">
       {{ block "main" . }}{{ end }}
-    </main>
-  {{ else }}
-    <main class="w-screen">
-    {{ block "main" . }}{{ end }}
-    </main>
-  {{ end }}
+      </main>
+    {{ end }}
 
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
-</body>
+    <footer>
+      {{ partial "footer.html" . }}
+    </footer>
+  </body>
 </html>
