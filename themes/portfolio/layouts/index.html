@@ -47,6 +47,7 @@
     {{ $taxo := "favorited" }}
     {{ with ($.Site.GetPage (printf "/%s" $taxo)) }}
       {{ range .Pages }}
+        Foo
 
         <!-- Project -->
         <a href="{{ .RelPermalink }}" class="w-auto h-auto bg-[#585b70] ring-2 ring-gray-300 rounded text-[#cdd6f4] no-underline hover:no-underline hover:text-[#cdd6f4] hover:ring-4">
