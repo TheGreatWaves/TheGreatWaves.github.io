@@ -20,6 +20,12 @@ module.exports = {
 
       },
       typography: {
+        quoteless: {
+          css: {
+            'blockquote p:first-of-type::before': { content: 'none' },
+            'blockquote p:first-of-type::after': { content: 'none' },
+          },
+        },
         DEFAULT: {
           css: {
             color: '#cdd6f4',
@@ -27,6 +33,14 @@ module.exports = {
               color: '#3182ce',
               '&:hover': {
                 color: '#2c5282',
+              },
+            },
+            code: {
+              '&::before': {
+                content: '"" !important',
+              },
+              '&::after': {
+                content: '"" !important',
               },
             },
           },

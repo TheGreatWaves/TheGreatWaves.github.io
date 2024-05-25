@@ -23,15 +23,216 @@ A component is composed of input pins, output pins and their sub-counter parts (
 # Component Composition
 A component is made up of pins, wires and subgates. A simple instruction langauge (GATE) is introduced to help define component descriptions.
 
-- **need \[chip\]**: Ensures the image of the chip with the given name is known.
-- **create \[chip\]**: Declares a new chip with the given name and switches current context. Should be placed at the top of a definition file.
-- **input \[N\]**: Declares *N* inputs pins.
-- **output \[N\]**: Declares *N* outputs pins.
-- **add \[chip\]**: Add a subchip with the given name to the current chip. This implicitly adds new input and output pins.
-- **wire \[src\] \[dest\]**: Wire **src** and **dst** pins together.
-- **precompute**: Precompute the component, a truthtable is generated for future computations to reference from. This is only suitable with small arithmetic gates.
-- **save**: Save the current configuration. Should be placed at the end of the description file.
+- `need [chip]` Ensures the image of the chip with the given name is known.
+- `create [chip]` Declares a new chip with the given name and switches current context. Should be placed at the top of a definition file.
+- `input [N]` Declares *N* inputs pins.
+- `output [N]` Declares *N* outputs pins.
+- `add [chip]` Add a subchip with the given name to the current chip. This implicitly adds new input and output pins.
+- `wire [src] [dest]` Wire **src** and **dst** pins together.
+- `precompute` Precompute the component, a truthtable is generated for future computations to reference from. This is only suitable with small arithmetic gates.
+- `save` Save the current configuration. Should be placed at the end of the description file.
 
 Obviously we can't build any logic only using only pins and wires. To introduce logic, the simulator comes bundled with a single built in component, the **nand** gate.
 
+Here is how one might write a **not** gate description.
 
+{{< highlight c >}}
+# Make sure that nand's image is loaded 
+need nand
+
+# Set the name of the current component as not
+create not
+
+# Not gate only has 1 input and 1 output
+
+# index 0
+input 1
+
+# index 255
+output 1
+
+# Only one subgate
+add nand
+
+# Nand exposes 3 pins a, b and out
+# which are indexed at 1, 2 and 256 respectively
+
+# So our configuration is as follows:
+# pin 0: global input pin
+# pin 1: nand's first input pin
+# pin 2: nand's second input pin
+# pin 255: global output pin
+# pin 256: nand's output pin
+
+# Wires
+
+# Connect global input into nand's a and b
+wire 0 1
+wire 0 2
+
+# Connect nand's output to global output
+wire 256 255
+
+save
+{{< /highlight >}}
+
+# Hardware Description Language
+Having to manually write component descriptions is error-prone and too cumbersome to be considered productive. This problem is mitigated by introducing another layer of abstraction which can help us streamline the process of component creation: the HDL. 
+
+> Note: The HDL I implemented is based on the one used in the [nand2tetris](https://www.nand2tetris.org/) course.
+
+The HDL is simple, consisting of only 5 keywords.
+- `CHIP` For declaring a new chip
+- `IN` For declaring a global input pin
+- `OUT` For declaring a global output pin
+- `PARTS` For defining sub-components and wiring
+- `SERIALIZE` For precomputing components
+
+Here is a revised **not** gate definition using HDL:
+{{< highlight zig >}}
+SERIALIZE CHIP not {
+  IN in;
+  OUT out;
+
+  PARTS:
+  nand(a=in, b=in, out=out);
+}
+{{< /highlight >}}
+Resulting in the following:
+{{< highlight c >}}
+// THIS DEFINITION FILE IS AUTO GENERATED. DO NOT EDIT MANUALLY.
+
+// DEPENDENCIES.
+need nand
+
+// BEGINNING OF GATE DECLARATION.
+create not
+
+// GLOBAL INPUT PINS.
+// INPUT PINS MAPPING.
+//  0 in
+input 1
+
+// GLOBAL OUTPUT PINS.
+// OUTPUT PINS MAPPING.
+// 255 out
+output 1
+
+// SUBGATES.
+add nand
+
+// LINKAGES.
+wire 0 1
+wire 0 2
+wire 256 255
+
+// SERIALIZATION.
+precompute
+
+// DEFINITION COMPLETE.
+save
+
+// END OF FILE.
+{{< /highlight >}}
+A meta file is also generated in order to retain contextual information about the component.
+{{< highlight c >}}
+// THIS META FILE IS AUTO GENERATED. DO NOT EDIT MANUALLY.
+
+// GATE NAME.
+not
+
+// BUSES DECLARATION.
+BUSES 0
+
+// GLOBAL INPUT PINS.
+INPUTS 1
+in
+
+// GLOBAL OUTPUT PINS.
+OUTPUTS 1
+out
+
+// END OF FILE.
+{{< /highlight >}}
+# Naming & Dynamic Linking
+The HDL introduces useful abstractions, the most prominent being pin naming and dynamic linking.
+
+Pin naming is as simple as the name implies. Instead of having to book keep pin indicies and keep track of what they are, we can refer to pins of a given component by name.
+
+Dynamic linking allows us to store results computed from components and feed them into other components, allowing for chained computation.
+
+We can see both of these two abstractions in action in the following example. 
+{{< highlight c >}}
+// Note: Using the not gate, defined previously
+SERIALIZE CHIP and {
+  IN a, b;
+  OUT out;
+
+  PARTS:
+  nand(a=a, b=b, out=temp); // dynamically create the value 'temp'
+  not(in=temp, out=out);    // feed temp into not, wiring nand.out to not.in
+}
+{{< /highlight >}}
+# Bus
+A bus is an array of pins which we treat as one single pin. Notice that the underlying library has no concept of buses, the logic for declaring and wiring buses is entirely achieved by the compiler. 
+
+Here is an example of how **not4** could be implemented.
+{{< highlight zig >}}
+SERIALIZE CHIP not4 {
+  IN in[4];   //< Notice the array syntax
+  OUT out[4]; //<
+
+  PARTS:
+  not(in=in[0], out=out[0]);
+  not(in=in[1], out=out[1]);
+  not(in=in[2], out=out[2]);
+  not(in=in[3], out=out[3]);
+}
+{{< /highlight >}}
+And now we can define something like this:
+{{< highlight zig >}}
+// Note: This is just for demonstration (not really useful)
+SERIALIZE CHIP bus4 {
+  IN in[4];
+  OUT out[4];
+
+  PARTS:
+  // Negate input, save result into out1
+  // Note that if the bus size of not4.in isn't 4, this will cause a compile error
+  not4(in=in, out=out1);
+
+  // Negate out1, send result to out
+  not4(in=out1, out=out);
+}
+{{< /highlight >}}
+# Testing
+Correctness is extremely important when developing anything, and ofcourse, chips are no different. Since they are expected to behave in a predictable manner, it is a no-brainer that testing facilities should be provided.
+
+Tests can be written using only 7 keywords.
+- `LOAD [chip]` Loads the specified chip.
+- `TEST [test name]` Declare a new test.
+- `VAR [name]: [chip]` Declare a new variable.
+- `SET [name].[member] = [value]` Set a component member value.
+- `EVAL` Simulate for one tick.
+- `REQUIRE [condition]` Assert condition.
+- `AND [condition]` Chaining conditions.
+
+Here is an example of how a `not` gate could be tested.
+{{< highlight lua >}}
+LOAD not;
+
+TEST 'not 0' {
+  VAR n: not;
+  SET n.in = 0;
+  EVAL;
+  REQUIRE n.in IS 0 AND n.out IS 1;
+}
+
+TEST 'not 1' {
+  VAR n: not;
+  SET n.in = 1;
+  EVAL;
+  REQUIRE n.in IS 1 AND n.out IS 0;
+}
+{{< /highlight >}}
+The test can be invoked in the CLI via `test [chip name]`.

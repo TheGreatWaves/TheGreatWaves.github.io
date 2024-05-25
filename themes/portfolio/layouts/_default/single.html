@@ -1,5 +1,5 @@
 {{ define "main" }}
-<div class="flex justify-center">
+<div class="scrollbar scrollbar-thumb-[#585b70] overflow-y-scroll flex justify-center">
   <div class="min-h-screen w-full lg:w-[65%] bg-[#313244] px-16 pt-1">
     <p class="prose text-[#cdd6f4] text-5xl mt-6 mb-2">{{ .Title }}</p>
 
@@ -18,7 +18,7 @@
         <p class="prose max-w-none text-5xl">This page is currently under construction.</p>
       </div>
     {{ else }}
-      <div class="prose overflow-x-hidden prose-strong:text-[#cdd6f4] max-w-none w-full prose-headings:overflow-y-hidden prose-p:overflow-y-hidden prose-headings:mb-0 prose-headings:text-4xl prose-headings:underline prose-headings:font-normal prose-headings:text-[#cdd6f4]">
+      <div class="prose prose-quoteless prose-blockquote:text-[#cdd6f4] before:prose-p:content-none after:prose-p:content-none overflow-x-hidden prose-strong:text-[#cdd6f4] max-w-none w-full prose-headings:overflow-y-hidden prose-p:overflow-y-hidden prose-headings:mb-0 prose-xl prose-code:text-[#cdd6f4] prose-code:bg-[#585b70] prose-code:rounded prose-headings:text-4xl prose-headings:underline prose-headings:font-normal prose-headings:text-[#cdd6f4]">
         {{.Content}}
       </div>
     {{ end }}
