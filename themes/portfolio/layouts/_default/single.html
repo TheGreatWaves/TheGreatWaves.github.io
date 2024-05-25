@@ -4,8 +4,7 @@
     <p class="prose text-[#cdd6f4] text-5xl mt-6 mb-2">{{ .Title }}</p>
 
     {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-    {{ $dateHuman := .Date | time.Format ":date_long" }}
-    &nbsp;<time class="text-[#bac2de] text-italic" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+    &nbsp;<time class="text-base text-[#a6adc8] italic" datetime="{{ $dateMachine }}">last edited {{ .Lastmod | time.Format ":date_medium" }}</time>
     <br>
 
     <div class="prose flex flex-row space-x-2 mt-8">
