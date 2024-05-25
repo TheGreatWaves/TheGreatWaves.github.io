@@ -45,33 +45,32 @@
   <!-- Container for projects -->
   <div class="grid grid-cols-2 gap-8 w-3/5 h-full">
     {{ $taxo := "favorited" }}
-    {{ with ($.Site.GetPage (printf "/%s" $taxo)) }}
-      {{ range .Pages }}
-        Foo
+    {{ $projects := ($.Site.GetPage (printf "/%s" $taxo)) }}
+    {{ range $projects.Pages }}
+      {{ print . }}
 
-        <!-- Project -->
-        <a href="{{ .RelPermalink }}" class="w-auto h-auto bg-[#585b70] ring-2 ring-gray-300 rounded text-[#cdd6f4] no-underline hover:no-underline hover:text-[#cdd6f4] hover:ring-4">
+      <!-- Project -->
+      <a href="{{ .RelPermalink }}" class="w-auto h-auto bg-[#585b70] ring-2 ring-gray-300 rounded text-[#cdd6f4] no-underline hover:no-underline hover:text-[#cdd6f4] hover:ring-4">
 
-          <div class="flex px-8 h-full flex-col position:relative -p-1 space-y-1">
-            <!-- Title -->
-            <div><p class="text-2xl my-2 text-bold no-underline">{{ .Title }}</p></div>
+        <div class="flex px-8 h-full flex-col position:relative -p-1 space-y-1">
+          <!-- Title -->
+          <div><p class="text-2xl my-2 text-bold no-underline">{{ .Title }}</p></div>
 
-            <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
+          <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
 
-            <p>{{ .Summary }}</p>
+          <p>{{ .Summary }}</p>
 
-            <div style="margin-top: auto;" class="pb-5 flex flex-row space-x-2">
-              {{ range .Params.terms }}
-                <div class="flex w-fit h-fit rounded bg-[#313244] ring-1 ring-gray-300 px-2">
-                  {{ . }}
-                </div>
-              {{ end }}
-            </div>
+          <div style="margin-top: auto;" class="pb-5 flex flex-row space-x-2">
+            {{ range .Params.terms }}
+              <div class="flex w-fit h-fit rounded bg-[#313244] ring-1 ring-gray-300 px-2">
+                {{ . }}
+              </div>
+            {{ end }}
           </div>
+        </div>
 
-        </a>
+      </a>
 
-      {{ end }}
     {{ end }}
   </div>
 
