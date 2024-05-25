@@ -11,23 +11,23 @@ terms = ['C++', 'SFML', 'Computer Architecture', 'Compiler']
 I've always been curious about how computers worked at the hardware level, so when I saw [this](https://www.youtube.com/watch?v=QZwneRb-zqA&list=PLFt_AvWsXl0dPhqVsKt1Ni_46ARyiCGSq) video by Sebastian Lague where he explored how they work with visual aid from his own crafted simulator, I knew I had to try making my own.
 
 # Simulator Foundation
-I started off by making a basic little logic library which will serve as basic building block for the simulator. The library is very simple, only consisting of two elementary concepts: **pins** and **wires**. 
+I started off by making a basic little logic library which will serve as the basic building block for the simulator. The library is very simple, only consisting of two elementary concepts: **pins** and **wires**. 
 
 Simply:
 - Pins have two states, on and off. 
-- Pins can be connected to together via a wire, connecting a source to a destination. (indicating signal flow direction)
+- Pins can be connected to together by a wire, connecting a source to a destination. (indicating signal flow direction)
 
 # Pins
-A component is composed of input pins, output pins and their sub-counter parts (exposed by internal subgates). In my design, input and output pins share the same address space. In order to identify whether a pin is an input pin or an output pin, we employ a simple strategy. We can simply check whether the pin ID (index) is above a certain threshold, if it is then it is an output pin. This does imply that we can only have a limited number of input pins, but it isn't a big concern because the threshold can easily be changed.
+A component is composed of input pins, output pins and their sub-counter parts (exposed by internal sub-components). In my design, input and output pins share the same address space. In order to identify whether a pin is an input pin or an output pin, we employ a simple strategy. We can simply check whether the pin ID (index) is above a certain threshold, if it is then it is an output pin. This does imply that we can only have a limited number of input pins, but it isn't a big concern because the threshold can easily be changed.
 
 # Component Composition
-A component is made up of pins, wires and subgates. A simple instruction langauge (GATE) is introduced to help define component descriptions.
+A component is made up of pins, wires and sub-components. A simple instruction langauge (GATE) is introduced to help define component descriptions.
 
 - `need [chip]` Ensures the image of the chip with the given name is known.
 - `create [chip]` Declares a new chip with the given name and switches current context. Should be placed at the top of a definition file.
 - `input [N]` Declares *N* inputs pins.
 - `output [N]` Declares *N* outputs pins.
-- `add [chip]` Add a subchip with the given name to the current chip. This implicitly adds new input and output pins.
+- `add [chip]` Add a sub-component with the given name to the current component. This implicitly adds new input and output pins.
 - `wire [src] [dest]` Wire **src** and **dst** pins together.
 - `precompute` Precompute the component, a truthtable is generated for future computations to reference from. This is only suitable with small arithmetic gates.
 - `save` Save the current configuration. Should be placed at the end of the description file.
@@ -51,7 +51,7 @@ input 1
 # index 255
 output 1
 
-# Only one subgate
+# Only one sub-component
 add nand
 
 # Nand exposes 3 pins a, b and out
@@ -79,7 +79,7 @@ save
 # Hardware Description Language
 Having to manually write component descriptions is error-prone and too cumbersome to be considered productive. This problem is mitigated by introducing another layer of abstraction which can help us streamline the process of component creation: the HDL. 
 
-> Note: The HDL I implemented is based on the one used in the [nand2tetris](https://www.nand2tetris.org/) course.
+> Note: The HDL I implemented is based off the one used in the [nand2tetris](https://www.nand2tetris.org/) course.
 
 The HDL is simple, consisting of only 5 keywords.
 - `CHIP` For declaring a new chip
@@ -155,9 +155,9 @@ out
 // END OF FILE.
 {{< /highlight >}}
 # Naming & Dynamic Linking
-The HDL introduces useful abstractions, the most prominent being pin naming and dynamic linking.
+The HDL introduces two useful abstractions: pin naming and dynamic linking.
 
-Pin naming is as simple as the name implies. Instead of having to book keep pin indicies and keep track of what they are, we can refer to pins of a given component by name.
+Pin naming is as simple as the name implies. Instead of having to bookkeep pin indicies and keep track of what they are, we can refer to pins directly by name.
 
 Dynamic linking allows us to store results computed from components and feed them into other components, allowing for chained computation.
 
@@ -206,7 +206,7 @@ SERIALIZE CHIP bus4 {
 }
 {{< /highlight >}}
 # Testing
-Correctness is extremely important when developing anything, and ofcourse, chips are no different. Since they are expected to behave in a predictable manner, it is a no-brainer that testing facilities should be provided.
+Correctness is extremely important when developing anything, and ofcourse, components are no different. Since they are expected to behave in a predictable manner, it is a no-brainer that testing facilities should be provided.
 
 Tests can be written using only 7 keywords.
 - `LOAD [chip]` Loads the specified chip.
@@ -235,4 +235,3 @@ TEST 'not 1' {
   REQUIRE n.in IS 1 AND n.out IS 0;
 }
 {{< /highlight >}}
-The test can be invoked in the CLI via `test [chip name]`.
