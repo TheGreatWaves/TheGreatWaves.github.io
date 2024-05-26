@@ -81,6 +81,7 @@ Having to manually write component descriptions is error-prone and too cumbersom
 
 > Note: The HDL I implemented is based off the one used in the [nand2tetris](https://www.nand2tetris.org/) course.
 
+
 The HDL is simple, consisting of only 5 keywords.
 - `CHIP` For declaring a new chip
 - `IN` For declaring a global input pin
@@ -154,6 +155,7 @@ out
 
 // END OF FILE.
 {{< /highlight >}}
+> One implementation note to take into consideration is that, the HDL's filename *should* be exactly the same as the component's name.
 # Naming & Dynamic Linking
 The HDL introduces two useful abstractions: pin naming and dynamic linking.
 
@@ -235,3 +237,31 @@ TEST 'not 1' {
   REQUIRE n.in IS 1 AND n.out IS 0;
 }
 {{< /highlight >}}
+# CLI
+The CLI contains basic commands you'd expect.
+
+> Note: Test scripts and HDL scripts are stored in `root`/`scripts`/ with `.tst` and `.hdl` respectively.
+
+|Command|Description|
+|-------|-----------|
+| `help` | Show commands. |
+| `compile [chip]` | Compile HDL file. Specify `all` to compile all HDL files. |
+| `gui` | Start gui mode. |
+| `info` | Display basic information about the simulator |
+| `list` | List all components defined in the simulator. |
+| `load [chip]` | Load component image. |
+| `serialize [chip]` | Generate truthtable for the component. |
+| `test [chip]` | Run test. Specify `all` to run all test files. |
+| `quit` | Exit the simulator. |
+# GUI
+A basic GUI is provided for users to prototype components. At first, creation of new component via GUI was possible, but was removed after the introducted of buses, since they aren't supported by the GUI (they show up as an array of pins). The GUI mode is recommended to only be used for demonstrative/visualization purposes.
+
+The GUI contains two basic parts, the `prototype board` where users can drop components and wire them up, and the `toolbelt` which allows to user to search and select components to add to the board.
+
+By default, the user is in `edit mode`. To create a component, the user can click on the *left hand side* of the `prototype board` to add global input pins, and similarly, they can click the *right hand side* for global output pins. Then they can nagivate to the `toolbelt`, search up their desired component, click on it and place it where they want it on the `prototype board`. Then they can enter `wire mode` and wire pins together. The `prototype board` is always simulating, so to test the behavior of their component, they can simply toggle the global input pins.
+
+Keybinds:
+- `E` Toggle between `edit` and `wire` mode.
+- `C` Clear the `prototype board`
+
+![digital-sim](https://github.com/TheGreatWaves/Digital-Logic-SFML/assets/106456906/abf0ab66-ec0c-4595-8169-20cb7cccebf0)
