@@ -24,6 +24,40 @@ In the simplest terms, a macro is a rule which specifies how certain pattern of 
 There are two main types of macros. The first type is extremely basic, it operates at the token level, and is only able to perform basic token substitution and concatenation, without context of what the input is. The second type operates at the AST level, which means that context can be derived from the input, allowing for more powerful substitutions.
 
 There is no standardized term for the two aforementioned types, however, `Rust` calls them `Declarative` and `Procedural` type macros respectively, and that's what we will be referring to them as.
+# Declarative Macros
+If you ever happen to find yourself in the middle of a discourse regarding macros (godforbid), it is most likely that they are discussing about `declarative` macros.
+
+`Declarative` macros are extremely simple, consider the following example in everyone's favorite language.
+
+In `C`, we can define a macro using the `#define` directive.
+```c
+// Defining constants.
+#define PI 3.14159f
+```
+Then to use it, we simply have to invoke the macro name in our code.
+```c
+float calculate_circle_area(float radius)
+{
+  // Expands into: return radius * radius * 3.14159f;
+  return radius * radius * PI;
+}
+```
+As you can see, macros can be used to help improve readability, instead of using magic numbers we can instead use macros. Of course it’s also fully valid to use a variable but for historical reasons macros were required because there was no such thing as a const qualifier in prior versions of C.
+
+# Function-like Macros
+
+We can also declare macros which takes in parameters. 
+
+We can redefine our circle area function as a macro.
+```c
+#define CALCULATE_CIRCLE_AREA_FROM_RADIUS(radius) (radius * radius * PI)
+```
+> Note is that the call site of the macro may look exactly identical to that of a function (atleast in C). In order to mitigate this issue, we often employ a convention to help us differentiate between the two.
+
+```c
+// Expands into: (5.f * 5.f * 3.14159f);
+CALCULATE_CIRCLE_AREA_FROM_RADIUS(5.f);
+```
 
 
 
