@@ -108,3 +108,46 @@ enum class Names
 };
 ```
 This is particularly useful for generating different parts of your code which requires the same information.
+
+## 3.2 Procedural Macros
+A `procedural macro` allows for creation of new syntax. They are functions which execute during compile time, consuming and generating syntax. They are basically functions which takes in an AST, and generates an AST as output.
+
+This concept is best demonstrated by a language like `Lisp` because of how regular the syntax is (everything is a list).
+
+In `Lisp`, there are three main building blocks:
+- **atom**: A number or a string of contiguous characters.
+- **string**: A sequence of characters enclosed in double quotation.
+- **list**: A sequence of atoms/strings/lists enclosed in parentheses.
+
+The syntax of `Lisp` is simply:
+```lisp
+(OPERATOR OPERANDS...)
+```
+So here is how one might write a "hello world" program in Lisp:
+```lisp
+(write-line "Hello, World!")
+```
+Here is how one could sum a list of integers:
+```lisp
+(+ 1 2 3 4)
+```
+Here is how one could define a function to greet someone:
+```lisp
+(defun greet (name)
+  (format t "Hello ~A!" name))
+
+; Output: "Hello Foo!"
+(greet "Foo")
+```
+As you can see the syntax is very regular. 
+
+> But why is this good for macros?
+
+- Well -- on one hand, we have our `Lisp` code, which is composed purely out of lists. The code is very easy to parse, *infact* it reflects the `AST`.
+- On the other, we have `Lisp`, which is very good at dealing with lists.
+
+So writing a macro becomes trivial, it is just writing another `Lisp` function.
+
+I won't go into further detail about Lisp, but [here](https://github.com/fredokun/lisp-list-comprehensions/blob/master/list-comprehensions.lisp.md) is a cool example of how one could implement Python-like `list comprehension` in Lisp.
+
+
