@@ -170,7 +170,7 @@ macro_rules! CALCULATE_CIRCLE_AREA_FROM_RADIUS {
   }
 }
 
-// Invoking 
+// Invocation 
 let area = CALCULATE_CIRCLE_AREA_FROM_RADIUS!(5.0);
 ```
 Here is how we can do it in `Macten`: 
@@ -185,11 +185,23 @@ defmacten_dec PI {
 // Function-like Macro
 defmacten_dec CALCULATE_CIRCLE_AREA_FROM_RADIUS {
   ($radius) => {
-    ($radius * $radius * PI![])
+      ($radius * $radius * PI![])
   }
 }
 
-// Invoking (in any language)
-area = CALCULATE_CIRCLE_AREA_FROM_RADIUS!(5.0);
+// Invocation (in any language)
+area = CALCULATE_CIRCLE_AREA_FROM_RADIUS![(5.0)]
 ```
-The only notable difference is the lack of the `fragment specifier` (**expr**), this difference is a given because Macten is generic, we don't know anything about the input.
+As you can see it is almost identical with some minor differences.
+
+## 4.1 Tokens
+`Macten` has no preconceptions of what tokens look like. 
+
+For example, it does not know that `5.f` or `5.0` should be grouped together in one token.
+
+Apart from contiguous strings, if you want to ensure that certain lexical values are grouped together in one token, you have to explicitly mark them by wrapping them in parentheses.
+
+For example in the `CALCULATE_CIRCLE_AREA_FROM_RADIUS` call:
+```rs
+area = CALCULATE_CIRCLE_AREA_FROM_RADIUS![(5.0)]
+```
