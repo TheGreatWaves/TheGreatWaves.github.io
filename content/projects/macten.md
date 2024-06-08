@@ -150,4 +150,46 @@ So writing a macro becomes trivial, it is just writing another `Lisp` function.
 
 I won't go into further detail about Lisp, but [here](https://github.com/fredokun/lisp-list-comprehensions/blob/master/list-comprehensions.lisp.md) is a cool example of how one could implement Python-like `list comprehension` in Lisp.
 
+# 4. Macten: Declarative Macros
 
+The way `Macten` declares macros is heavily influenced by `Rust`'s syntax for `declarative` macros.
+
+In `Rust`, creating and using macros is straightforward. You define a macro with `macro_rules!` and call it by its name followed by an exclamation mark (`!`).
+```rs
+// Value Macro
+macro_rules! PI {
+  () => {
+    3.14159
+  }
+}
+
+// Function-like Macro
+macro_rules! CALCULATE_CIRCLE_AREA_FROM_RADIUS {
+  ($radius: expr) => {
+    ($radius * $radius * PI![])
+  }
+}
+
+// Invoking 
+let area = CALCULATE_CIRCLE_AREA_FROM_RADIUS!(5.0);
+```
+Here is how we can do it in `Macten`: 
+```rs
+// Value Macro
+defmacten_dec PI {
+  () => {
+    3.14159
+  }
+}
+
+// Function-like Macro
+defmacten_dec CALCULATE_CIRCLE_AREA_FROM_RADIUS {
+  ($radius) => {
+    ($radius * $radius * PI![])
+  }
+}
+
+// Invoking (in any language)
+area = CALCULATE_CIRCLE_AREA_FROM_RADIUS!(5.0);
+```
+The only notable difference is the lack of the `fragment specifier` (**expr**), this difference is a given because Macten is generic, we don't know anything about the input.
