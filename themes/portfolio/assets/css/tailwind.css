@@ -50,7 +50,9 @@ body {
 }
 
 @layer base {
-  p {
+
+  p,
+  li {
     code {
       @apply !font-normal px-1;
     }
