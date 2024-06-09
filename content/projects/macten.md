@@ -143,10 +143,10 @@ As you can see the syntax is very regular.
 
 > But why is this good for macros?
 
-- Well -- on one hand, we have our `Lisp` code, which is composed purely out of lists. The code is very easy to parse, *infact* it reflects the `AST`.
+- Well -- on one hand, we have our `Lisp` code, which is composed purely out of lists. The code is very easy to parse, and it has a very nice property: it reflects the `AST`!
 - On the other, we have `Lisp`, which is very good at dealing with lists.
 
-So writing a macro becomes trivial, it is just writing another `Lisp` function.
+So writing a macro becomes trivial, it is just writing another `Lisp` function and passing `Lisp` code in as input.
 
 I won't go into further detail about Lisp, but [here](https://github.com/fredokun/lisp-list-comprehensions/blob/master/list-comprehensions.lisp.md) is a cool example of how one could implement Python-like `list comprehension` in Lisp.
 
@@ -204,4 +204,57 @@ Apart from contiguous strings, if you want to ensure that certain lexical values
 For example in the `CALCULATE_CIRCLE_AREA_FROM_RADIUS` call:
 ```rs
 area = CALCULATE_CIRCLE_AREA_FROM_RADIUS![(5.0)]
+```
+## 4.2 Variadic Arguments
+> Important: Variadic arguments can ONLY be placed at the end of a parameter list.
+
+`Declarative macros` allow variadic arguments this is achieved by declaring an input parameter with the following syntax: `$($args)`. The pattern which we want to parse has to be enclosed in parentheses, and the final group will be captured in the `$args` symbol.
+
+
+Consider the following `min` macro.
+```rs
+defmacten_dec min {
+  ($x $($y)) => {min($x, min![$y])}
+  ($x) => {$x}
+}
+
+// Expands into: min(1, min(2, 3)) 
+min![1 2 3]
+```
+Here our variadic pattern `$($y)` does not expect any pattern, it captures all the tokens after the first one (which is put into `$x`). The captured values are kept inside `$y` and passed on to be expanded recursively.
+
+The following example might illustrate pattern capturing a little better:
+```rs
+// Discard the first value and return the rest
+defmacten_dec rest {
+  ($first $($rest)) => {$rest}
+}
+
+// Expands into: second third fourth 
+rest![first second third fourth]
+```
+Now let's introduce some patterns to our variadic input.
+```rs
+defmacten_dec csv_rest {
+  ($first, $($rest,)) => {$rest}
+}
+
+// Expands into: second,third,fourth,
+csv_rest![first, second, third, fourth,]
+```
+> The trailing comma is necessary because the pattern has to be complete for a match. 
+
+Notice that the capture body contains the whole pattern, not just the values at the position of `$rest` (second third fourth). This is by design, because unpacking of patterns is expected to be done by the user.
+
+Now we are equipped with enough knowledge to remaster our `min` macro to take comma-seperated values.
+```rs
+defmacten_dec min {
+    ($x, $($y,)) => {min($x, min![$y])}
+
+    // Strip the last trailing comma
+    ($x,) => {$x}
+}
+
+// Expands into: min(1, min(2, 3))
+min![1, 2, 3,]
 ```
