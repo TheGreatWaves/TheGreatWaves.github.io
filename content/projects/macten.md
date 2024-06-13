@@ -201,6 +201,8 @@ For example, it does not know that `5.f` or `5.0` should be grouped together in 
 
 Apart from contiguous strings, if you want to ensure that certain lexical values are grouped together in one token, you have to explicitly mark them by wrapping them in parentheses.
 
+> Note: Only the first layer of parentheses gets unwrapped, if you want you pass in `(...)` as a token, you may do so with `((...))`.
+
 For example in the `CALCULATE_CIRCLE_AREA_FROM_RADIUS` call:
 ```rs
 area = CALCULATE_CIRCLE_AREA_FROM_RADIUS![(5.0)]
@@ -258,3 +260,42 @@ defmacten_dec min {
 // Expands into: min(1, min(2, 3))
 min![1, 2, 3,]
 ```
+# 4.3 Macro Expansion as Argument
+`Macten` has no preconceptions of what tokens may look like beyond elementary tokens (identifer, numbers and symbols). 
+
+This means that if we were to pass in a macro call as an argument, instead of invoking the macro and passing in the expansion, we would be passing the tokens which makes up the call site instead.
+
+The solution to this is by wrapping the macro call in parentheses, grouping the call-site as one token, the resulting expansion will be captured as a single token.
+
+Consider the following example:
+```rs
+defmacten_dec min {
+  ($x, $($y,)) => {min($x, min![$y])}
+  ($x,) => {$x}
+}
+
+defmacten_dec list {
+  () => {1,2,3,4,}
+}
+
+// Case 1
+min![list![]] 
+
+// Case 2
+min![(list![])]
+```
+These two cases do not work.
+- `Case 1` fails because the macro is not invoked. Instead, we are passing in each token. (`list`, `!`, `[`, `]`)
+- `Case 2` fails because the expansion of `list![]` will be captured as one collective token. Instead of processing each tokens from the expansion, it will instead match a single token (with the lexeme being `1,2,3,4,`).
+
+Thankfully, the solution is quite simple.
+```rs
+defmacten_dec caller {
+  ($macro, $args) => {$macro![$args]}
+}
+
+// Expands into: min(1, min(2, min(3, 4)))
+caller![min, (list![])]
+```
+By utilizing a caller, we are able to pass in the expansion of `list![]` as a token stream to `min![]`, rather than it being a single token. 
+This works because when we inject the expansion into the macro body, token grouping dissipates.
