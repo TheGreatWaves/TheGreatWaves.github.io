@@ -58,4 +58,12 @@ body {
       @apply !font-normal px-1;
     }
   }
+
+  #TableOfContents>ol>li>a {
+    @apply text-lg font-semibold text-[#7f849c] hover:text-[#cdd6f4] max-w-64;
+  }
+
+  #TableOfContents>ol>li>ol>li>a {
+    @apply ml-6 text-sm text-[#7f849c] hover:text-[#cdd6f4];
+  }
 }

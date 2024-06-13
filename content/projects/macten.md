@@ -69,12 +69,12 @@ float GLUE(area, 1) = CALCULATE_CIRCLE_AREA_FROM_RADIUS(5.f);
 > Note: This is for demonstration. You should always use a function where applicable and reserve the usage of macros to specific actions which functions can't achieve like `GLUE`.
 ## 3.1.3 Tricks
 Here are some quick tricks, they aren't relevant as a primer, but they *are* cool.
-## do-while
+### do-while
 In C, we can group statements together in a do-while loop. This helps maintainability, by forcing us to postfix our macro calls with a semi-colon.
 ```c
 #define DO_SMTH do { stmt1(); stmt2(); } while (0)
 ```
-## Pattern Matching
+### Pattern Matching
 Macro patterns can be matched and invoked after concatenation.
 ```c
 #define GREET_WORLD hello_world()
@@ -85,7 +85,7 @@ Macro patterns can be matched and invoked after concatenation.
 GREET(WORLD)
 ```
 
-## X-Macros
+### X-Macros
 Useful for generating list-like structures.
 ```c
 #define LIST_OF_NAMES(M) \
@@ -260,7 +260,7 @@ defmacten_dec min {
 // Expands into: min(1, min(2, 3))
 min![1, 2, 3,]
 ```
-# 4.3 Macro Expansion as Argument
+## 4.3 Macro Expansion as Argument
 `Macten` has no preconceptions of what tokens may look like beyond elementary tokens (identifer, numbers and symbols). 
 
 This means that if we were to pass in a macro call as an argument, instead of invoking the macro and passing in the expansion, we would be passing the tokens which makes up the call site instead.

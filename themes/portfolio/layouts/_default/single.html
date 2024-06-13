@@ -1,52 +1,67 @@
 {{ define "main" }}
-<div class="scrollbar scrollbar-thumb-[#585b70] overflow-y-scroll flex justify-center">
-  <div class="min-h-screen w-full lg:w-[65%] bg-[#313244] px-16 pt-1">
-    <p class="prose text-[#cdd6f4] text-5xl mt-6 mb-2">{{ .Title }}</p>
+<div class="min-h-screen max-h-screen w-full">
+  <aside class="flex fixed bg-[#1e1e2e] min-h-screen w-80 justify-center">
+   <div class="mt-10">
+    {{ .Page.TableOfContents }}
+   </div>
+  </aside>
+  <div class="w-full lg:w-[calc(100%-16rem)] translate-x-80 scrollbar scrollbar-thumb-[#585b70] overflow-y-scroll flex justify-center">
+    <div class="min-h-screen w-full bg-[#313244] px-16 pt-1">
+      <p class="prose text-[#cdd6f4] text-5xl mt-6 mb-2">{{ .Title }}</p>
 
-    {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-    &nbsp;<time class="text-base text-[#a6adc8] italic" datetime="{{ $dateMachine }}">last edited {{ .Lastmod | time.Format ":date_medium" }}</time>
-    <br>
+      {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+      &nbsp;<time class="text-base text-[#a6adc8] italic" datetime="{{ $dateMachine }}">last edited {{ .Lastmod | time.Format ":date_medium" }}</time>
+      <br>
 
-    <div class="prose flex flex-row space-x-2 mt-8">
-      {{ partial "terms_list.html" . }}
+      <div class="prose flex flex-row space-x-2 mt-8">
+        {{ partial "terms_list.html" . }}
+      </div>
+
+      <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+
+      {{ if in .Params.tags "wip" }}
+        <div class="flex grow w-full justify-center items-center">
+          <p class="prose max-w-none text-5xl">This page is currently under construction.</p>
+        </div>
+      {{ else }}
+        <div class="
+        after:prose-p:content-none 
+        before:prose-p:content-none 
+        max-w-none 
+        overflow-x-hidden 
+        prose 
+        max-w-xl
+        prose-blockquote:text-[#cdd6f4] 
+        prose-code:bg-[#585b70] 
+        prose-code:rounded 
+        prose-code:text-[#cdd6f4] 
+        prose-headings:pb-1 
+        prose-h1:text-4xl 
+        prose-h1:no-underline 
+        prose-h1:font-semibold 
+        prose-h2:mb-2 
+        prose-h2:no-underline 
+        prose-h2:prose-2xl 
+        prose-h2:font-medium 
+        prose-h3:prose-2xl 
+        prose-h3:font-light 
+        prose-h3:italic 
+        prose-headings:font-normal 
+        prose-headings:mb-0 
+        prose-headings:mt-16
+        prose-headings:overflow-y-hidden 
+        prose-headings:text-[#cdd6f4]
+        prose-headings:underline 
+        prose-p:overflow-y-hidden 
+        prose-p:prose-lg
+        prose-quoteless 
+        prose-strong:text-[#cdd6f4] 
+        w-full 
+        ">
+          {{.Content}}
+        </div>
+      {{ end }}
     </div>
-
-    <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
-
-    {{ if in .Params.tags "wip" }}
-      <div class="flex grow w-full justify-center items-center">
-        <p class="prose max-w-none text-5xl">This page is currently under construction.</p>
-      </div>
-    {{ else }}
-      <div class="
-      after:prose-p:content-none 
-      before:prose-p:content-none 
-      max-w-none 
-      overflow-x-hidden 
-      prose 
-      prose-blockquote:text-[#cdd6f4] 
-      prose-code:bg-[#585b70] 
-      prose-code:rounded 
-      prose-code:text-[#cdd6f4] 
-      prose-headings:pb-1 
-      prose-h1:text-4xl 
-      prose-h2:mb-2 
-      prose-h2:mt-0 
-      prose-h2:prose-2xl 
-      prose-headings:font-normal 
-      prose-headings:mb-0 
-      prose-headings:overflow-y-hidden 
-      prose-headings:text-[#cdd6f4]
-      prose-headings:underline 
-      prose-p:overflow-y-hidden 
-      prose-p:prose-lg
-      prose-quoteless 
-      prose-strong:text-[#cdd6f4] 
-      w-full 
-      ">
-        {{.Content}}
-      </div>
-    {{ end }}
   </div>
 </div>
 {{ end }}

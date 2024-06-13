@@ -19,3 +19,7 @@ enableGitInfo = true
     noHl = false
     style = 'github-dark'
     tabWidth = 4
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 2
+    ordered = true
