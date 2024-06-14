@@ -76,7 +76,7 @@ wire 256 255
 save
 {{< /highlight >}}
 
-# 5. Hardware Description Language
+# 5. Hardware Desc Language
 Having to manually write component descriptions is error-prone and too cumbersome to be considered productive. This problem is mitigated by introducing another layer of abstraction which can help us streamline the process of component creation: the HDL. 
 
 > Note: The HDL I implemented is based off the one used in the [nand2tetris](https://www.nand2tetris.org/) course.
