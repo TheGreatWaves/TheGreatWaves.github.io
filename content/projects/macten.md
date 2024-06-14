@@ -25,17 +25,22 @@ There are two main types of macros. The first type is extremely basic, it operat
 
 There is no standardized term for the two aforementioned types, however, `Rust` calls them `Declarative` and `Procedural` type macros respectively, and that's what we will be referring to them as.
 ## 3.1 Declarative Macros
-If you ever happen to find yourself in the middle of a discourse regarding macros (godforbid), it is most likely that they are discussing about `declarative` macros.
+A `declarative` macro is the most common type of macro, it is typically what people refer to when they talk about macros. 
 
-`Declarative` macros are conceptually simple, it's just substitution.
+They are conceptually simple, involving only basic string substitution.
 
-## 3.1.1 Value Macros
+This type of macro is most prominent in `C`, being the only macro type it supports. 
 
-In `C`, we can define a macro using the `#define` directive.
+Examples below showcases what declarative macros look like in `C`.
+### Value Macros
+
+In `C`, we can define a macro (declarative) using the `#define` directive.
 ```c
 // Defining constants.
 #define PI 3.14159f
 ```
+Here, the symbol `PI` is assigned the value `3.14159f`.
+
 Then to use it, we simply have to invoke the macro name in our code and the value will be pasted during compile-time.
 ```c
 float calculate_circle_area(float radius)
@@ -46,7 +51,7 @@ float calculate_circle_area(float radius)
 ```
 As you can see, macros can be used to help improve readability, instead of using magic numbers we can instead use macros. Of course it’s also fully valid to use a variable but for historical reasons macros were required because there was no such thing as a const qualifier in prior versions of C.
 
-## 3.1.2 Function-like Macros
+### Function-like Macros
 
 We can also declare macros which takes in parameters. 
 
@@ -67,47 +72,6 @@ CALCULATE_CIRCLE_AREA_FROM_RADIUS(5.f);
 float GLUE(area, 1) = CALCULATE_CIRCLE_AREA_FROM_RADIUS(5.f);
 ```
 > Note: This is for demonstration. You should always use a function where applicable and reserve the usage of macros to specific actions which functions can't achieve like `GLUE`.
-## 3.1.3 Tricks
-Here are some quick tricks, they aren't relevant as a primer, but they *are* cool.
-### do-while
-In C, we can group statements together in a do-while loop. This helps maintainability, by forcing us to postfix our macro calls with a semi-colon.
-```c
-#define DO_SMTH do { stmt1(); stmt2(); } while (0)
-```
-### Pattern Matching
-Macro patterns can be matched and invoked after concatenation.
-```c
-#define GREET_WORLD hello_world()
-#define GREET_ME    hello_me()
-#define GREET(who)  GREET_ ## who
-
-// Expands into: // hello_world()
-GREET(WORLD)
-```
-
-### X-Macros
-Useful for generating list-like structures.
-```c
-#define LIST_OF_NAMES(M) \
-  M(FOO) \
-  M(BAR)
-
-#define ENUMERATE(name) name,
-
-enum class Names
-{
-  LIST_OF_NAMES(ENUMERATE)
-};
-```
-Expands into:
-```cpp
-enum class Names 
-{
-  FOO,
-  BAR,
-};
-```
-This is particularly useful for generating different parts of your code which requires the same information.
 
 ## 3.2 Procedural Macros
 A `procedural macro` allows for creation of new syntax. They are functions which execute during compile time, consuming and generating syntax. They are basically functions which takes in an AST, and generates an AST as output.
@@ -298,4 +262,4 @@ defmacten_dec caller {
 caller![min, (list![])]
 ```
 By utilizing a caller, we are able to pass in the expansion of `list![]` as a token stream to `min![]`, rather than it being a single token. 
-This works because when we inject the expansion into the macro body, token grouping dissipates.
+This works because when we inject the expansion into the macro body, the grouping dissipates.

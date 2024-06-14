@@ -7,20 +7,20 @@ tags = ['favorited']
 terms = ['C++', 'SFML', 'Computer Architecture', 'Compiler']
 +++
 
-# Introduction
+# 1. Introduction
 I've always been curious about how computers worked at the hardware level, so when I saw [this](https://www.youtube.com/watch?v=QZwneRb-zqA&list=PLFt_AvWsXl0dPhqVsKt1Ni_46ARyiCGSq) video by Sebastian Lague where he explored how they work with visual aid from his own crafted simulator, I knew I had to try making my own.
 
-# Simulator Foundation
+# 2. Simulator Foundation
 I started off by making a basic little logic library which will serve as the basic building block for the simulator. The library is very simple, only consisting of two elementary concepts: **pins** and **wires**. 
 
 Simply:
 - Pins have two states, on and off. 
 - Pins can be connected to together by a wire, connecting a source to a destination. (indicating signal flow direction)
 
-# Pins
+# 3. Pins
 A component is composed of input pins, output pins and their sub-counter parts (exposed by internal sub-components). In my design, input and output pins share the same address space. In order to identify whether a pin is an input pin or an output pin, we employ a simple strategy. We can simply check whether the pin ID (index) is above a certain threshold, if it is then it is an output pin. This does imply that we can only have a limited number of input pins, but it isn't a big concern because the threshold can easily be changed.
 
-# Component Composition
+# 4. Component Composition
 A component is made up of pins, wires and sub-components. A simple instruction langauge (GATE) is introduced to help define component descriptions.
 
 - `need [chip]` Ensures the image of the chip with the given name is known.
@@ -76,7 +76,7 @@ wire 256 255
 save
 {{< /highlight >}}
 
-# Hardware Description Language
+# 5. Hardware Description Language
 Having to manually write component descriptions is error-prone and too cumbersome to be considered productive. This problem is mitigated by introducing another layer of abstraction which can help us streamline the process of component creation: the HDL. 
 
 > Note: The HDL I implemented is based off the one used in the [nand2tetris](https://www.nand2tetris.org/) course.
@@ -156,7 +156,7 @@ out
 // END OF FILE.
 {{< /highlight >}}
 > One implementation note to take into consideration is that, the HDL's filename *should* be exactly the same as the component's name.
-# Naming & Dynamic Linking
+# 6. Naming & Dynamic Linking
 The HDL introduces two useful abstractions: pin naming and dynamic linking.
 
 Pin naming is as simple as the name implies. Instead of having to bookkeep pin indicies and keep track of what they are, we can refer to pins directly by name.
@@ -171,11 +171,14 @@ SERIALIZE CHIP and {
   OUT out;
 
   PARTS:
-  nand(a=a, b=b, out=temp); // dynamically create the value 'temp'
-  not(in=temp, out=out);    // feed temp into not, wiring nand.out to not.in
+  // dynamically create the value 'temp'
+  nand(a=a, b=b, out=temp);
+
+  // feed temp into not, wiring nand.out to not.in
+  not(in=temp, out=out);
 }
 {{< /highlight >}}
-# Bus
+# 7. Bus
 A bus is an array of pins which we treat as one single pin. Notice that the underlying library has no concept of buses, the logic for declaring and wiring buses is entirely achieved by the compiler. 
 
 Here is an example of how **not4** could be implemented.
@@ -200,14 +203,15 @@ SERIALIZE CHIP bus4 {
 
   PARTS:
   // Negate input, save result into out1
-  // Note that if the bus size of not4.in isn't 4, this will cause a compile error
+  // Note that if the bus size of not4.in isn't 4, 
+  // this will cause a compile error
   not4(in=in, out=out1);
 
   // Negate out1, send result to out
   not4(in=out1, out=out);
 }
 {{< /highlight >}}
-# Testing
+# 8. Testing
 Correctness is extremely important when developing anything, and ofcourse, components are no different. Since they are expected to behave in a predictable manner, it is a no-brainer that testing facilities should be provided.
 
 Tests can be written using only 7 keywords.
@@ -237,7 +241,7 @@ TEST 'not 1' {
   REQUIRE n.in IS 1 AND n.out IS 0;
 }
 {{< /highlight >}}
-# CLI
+# 9. CLI
 The CLI contains basic commands you'd expect.
 
 > Note: Test scripts and HDL scripts are stored in `root`/`scripts`/ with `.tst` and `.hdl` respectively.
@@ -253,7 +257,7 @@ The CLI contains basic commands you'd expect.
 | `serialize [chip]` | Generate truthtable for the component. |
 | `test [chip]` | Run test. Specify `all` to run all test files. |
 | `quit` | Exit the simulator. |
-# GUI
+# 10. GUI
 A basic GUI is provided for users to prototype components. At first, creation of new component via GUI was possible, but was removed after the introducted of buses, since they aren't supported by the GUI (they show up as an array of pins). The GUI mode is recommended to only be used for demonstrative/visualization purposes.
 
 The GUI contains two basic parts, the `prototype board` where users can drop components and wire them up, and the `toolbelt` which allows to user to search and select components to add to the board.
