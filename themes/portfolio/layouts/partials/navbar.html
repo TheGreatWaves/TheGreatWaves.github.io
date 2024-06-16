@@ -1,8 +1,11 @@
 <!-- Sidebar  -->
 <aside class="flex flex-col fixed bg-[#1e1e2e] min-h-screen w-80 items-center">
 
- <div class="my-2 relative w-4/5 text-[#7f849c] hover:text-[#cdd6f4] font-semibold">
-   <a href="/#projects" class="left">Back</a>
+ <div class="my-2 relative w-4/5 text-[#7f849c] font-semibold h-6">
+   <a href="/#projects" class="absolute left-0 hover:text-[#cdd6f4] ">Back</a>
+	{{ if .NextPage }}
+	<a class="absolute right-0 hover:text-[#cdd6f4] " href="{{ .NextPage.Permalink }}?ref=footer">Next: {{ .NextPage.Title | truncate 50 "..." }}</a>
+	{{ end }}
  </div>
 
  <!-- Horizontal -->
