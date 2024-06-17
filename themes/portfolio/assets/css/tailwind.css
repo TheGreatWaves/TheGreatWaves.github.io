@@ -66,4 +66,8 @@ body {
   #TableOfContents>ol>li>ol>li>a {
     @apply ml-6 text-sm text-[#7f849c] hover:text-[#cdd6f4];
   }
+
+  #TableOfContents>ol>li>ol>li>ol>li>a {
+    @apply ml-12 text-sm text-[#7f849c] hover:text-[#cdd6f4];
+  }
 }
