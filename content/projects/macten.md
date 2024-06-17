@@ -32,7 +32,7 @@ They are conceptually simple, involving only basic string substitution.
 This type of macro is most prominent in `C`, being the only macro type it supports. 
 
 Examples below showcases what declarative macros look like in `C`.
-### Value Macros
+### 3.1.1 Value Macros
 
 In `C`, we can define a macro (declarative) using the `#define` directive.
 ```c
@@ -51,7 +51,7 @@ float calculate_circle_area(float radius)
 ```
 As you can see, macros can be used to help improve readability, instead of using magic numbers we can instead use macros. Of course it’s also fully valid to use a variable but for historical reasons macros were required because there was no such thing as a const qualifier in prior versions of C.
 
-### Function-like Macros
+### 3.1.2 Function-like Macros
 
 We can also declare macros which takes in parameters. 
 
