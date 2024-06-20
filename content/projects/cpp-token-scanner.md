@@ -6,3 +6,6 @@ draft = false
 tags = ['favorited', 'wip']
 terms = ['C++', 'Compiler']
 +++
+
+# 1. Introduction
+The goal of this project is to develop a framework which allows us to generate a scanner which is known at compile-time through token definitions.
