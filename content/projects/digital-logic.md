@@ -269,3 +269,31 @@ Keybinds:
 - `C` Clear the `prototype board`
 
 ![digital-sim](https://github.com/TheGreatWaves/Digital-Logic-SFML/assets/106456906/abf0ab66-ec0c-4595-8169-20cb7cccebf0)
+
+# 11. Creating a Computer
+
+## 11.1 Elementary Logic Gates
+### Not
+### And
+### Or
+### Xor
+### Mux
+### Dmux
+
+## 11.2 Boolean Arithmetic Gates
+### Half Adder
+### Full Adder
+### Add16
+### Increment
+### Arithmetic Logic Unit
+
+## 11.3 Memory Gates
+### Data Flip Flop
+### Bit
+### Register
+### Ram
+### Program Counter
+
+## 11.4 CPU Architecture
+
+## 11.5 Computer Architecture
