@@ -297,3 +297,12 @@ Keybinds:
 ## 11.4 CPU Architecture
 
 ## 11.5 Computer Architecture
+
+# 12. Emulator
+An eumlator of the computer is also implemented in order to test without having to worry about performance of the underlying logic library.
+
+Future work is required to be able to swap in the emulator with the actual implementation of the computer.
+
+# 13. Building a Language
+
+# 14. Building an OS
