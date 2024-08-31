@@ -33,19 +33,19 @@
 -->
 
 <!--  Projects -->
-<section class="flex w-screen h-screen snap-start items-center flex-col gap-8 pb-8" id="projects">
+<section class="flex w-screen h-full snap-start items-center flex-col gap-4 lg:gap-8 pb-8" id="projects">
   <!-- Top bar -->
-  <div class="px-64 h-auto w-screen flex flex-row bg-gradient-to-r from-[#45475a] via-[#585b70] to-[#45475a]">
-    <div class="flex w-1/3 h-full px-16 items-center justify-center">
-      <p class="text-[#cdd6f4] text-4xl">Projects</p>
+  <div class="lg:px-64 h-16 lg:h-auto w-screen flex flex-row bg-gradient-to-r from-[#45475a] via-[#585b70] to-[#45475a] items-center justify-center">
+    <div class="flex w-1/3 lg:h-auto h-16 px-16 items-center justify-center">
+      <p class="text-[#cdd6f4] text-4xl sm:self-auto sm:text-center">Projects</p>
     </div>
-    <div class="flex w-2/3 h-full px-60 items-center justify-start ml-16">
-      <p class="text-[#cdd6f4] prose-lg">My favorite projects ~</p>
-    </div>
+    <!-- <div class="invisible md:visible lg:visible flex w-2/3 h-full px-60 items-center justify-start ml-16"> -->
+      <!-- <p class="invisible md:visible lg:visible text-[#cdd6f4] prose-lg">My favorite projects ~</p> -->
+    <!-- </div> -->
   </div>
 
   <!-- Container for projects -->
-  <div class="grid grid-cols-2 gap-8 w-3/5 h-full">
+  <div class="grid grid-cols-2 gap-4 lg:gap-8 w-full px-4 lg:w-3/5 h-screen">
     {{ $taxo := "/tags/favorited" }}
     {{ with ($.Site.GetPage $taxo) }}
       {{ range .Pages }}
@@ -55,19 +55,18 @@
 
           <div class="flex px-8 h-full flex-col position:relative -p-1 space-y-1">
             <!-- Title -->
-            <div><p class="text-2xl my-2 text-bold no-underline">{{ .Title }}</p></div>
+            <div><p class="text-lg lg:text-2xl my-2 text-bold no-underline">{{ .Title }}</p></div>
 
             <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
 
             <p>{{ .Summary }}</p>
-
-            <div style="margin-top: auto;" class="pb-5 flex flex-row space-x-2">
-              {{ range .Params.terms }}
-                <div class="flex w-fit h-fit rounded bg-[#313244] ring-1 ring-gray-300 px-2">
-                  {{ . }}
-                </div>
-              {{ end }}
-            </div>
+            <!-- <div style="margin-top: auto;" class="pb-5 flex flex-row space-x-2"> -->
+              <!-- {{ range .Params.terms }} -->
+                <!-- <div class="flex w-fit h-fit rounded bg-[#313244] ring-1 ring-gray-300 px-2"> -->
+                  <!-- {{ . }} -->
+                <!-- </div> -->
+              <!-- {{ end }} -->
+            <!-- </div> -->
           </div>
 
         </a>
