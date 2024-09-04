@@ -1,5 +1,5 @@
 <!-- Sidebar  -->
-<aside class="invisible md:visible lg:visible flex flex-col fixed bg-[#1e1e2e] min-h-screen w-80 items-center">
+<aside class="invisible md:visible lg:visible flex flex-col fixed bg-[#1e1e2e] w-80 items-center h-screen">
  <div class="my-2 relative w-4/5 text-[#7f849c] font-semibold h-6">
    <a href="/#projects" class="absolute left-0 hover:text-[#cdd6f4] ">Back</a>
 	{{ if .NextPage }}
@@ -10,7 +10,7 @@
  <!-- Horizontal -->
  <hr class="mb-2 h-px w-4/5 bg-[#7f849c] border-0 dark:bg-gray-700">
 
- <div class="w-[80%]">
+ <div class="w-[80%] overflow-y-scroll no-scrollbar">
   {{ .Page.TableOfContents }}
  </div>
 </aside>
