@@ -33,19 +33,16 @@
 -->
 
 <!--  Projects -->
-<section class="flex w-screen h-full snap-start items-center flex-col gap-4 lg:gap-8 pb-8" id="projects">
+<section class="flex w-screen h-full snap-start items-center flex-col gap-4 lg:gap-8 pb-4 lg:pb-8" id="projects">
   <!-- Top bar -->
   <div class="lg:px-64 h-16 lg:h-auto w-screen flex flex-row bg-gradient-to-r from-[#45475a] via-[#585b70] to-[#45475a] items-center justify-center">
     <div class="flex w-1/3 lg:h-auto h-16 px-16 items-center justify-center">
       <p class="text-[#cdd6f4] text-4xl sm:self-auto sm:text-center">Projects</p>
     </div>
-    <!-- <div class="invisible md:visible lg:visible flex w-2/3 h-full px-60 items-center justify-start ml-16"> -->
-      <!-- <p class="invisible md:visible lg:visible text-[#cdd6f4] prose-lg">My favorite projects ~</p> -->
-    <!-- </div> -->
   </div>
 
   <!-- Container for projects -->
-  <div class="grid grid-cols-2 gap-4 lg:gap-8 w-full px-4 lg:w-3/5 h-[calc(100vh-7rem)]">
+  <div class="grid grid-cols-2 gap-4 lg:gap-8 w-full px-4 lg:w-3/5 h-[calc(100vh-6rem)] lg:h-[calc(100vh-194px)]">
     {{ $taxo := "/tags/favorited" }}
     {{ with ($.Site.GetPage $taxo) }}
       {{ range .Pages }}
