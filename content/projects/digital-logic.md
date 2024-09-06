@@ -272,37 +272,50 @@ Keybinds:
 
 # 11. Creating a Computer
 
+Now that the framework is complete, we can actually now begin to create something out of it. More specifically, we can try creating a working computer! 
+
 ## 11.1 Elementary Logic Gates
-### Not
-### And
-### Or
-### Xor
-### Mux
-### Dmux
+Welcome to the start line! Here, our first goal is to simply create components which allows us to perform boolean logic.
 
-## 11.2 Boolean Arithmetic Gates
-### Half Adder
-### Full Adder
-### Add16
-### Increment
-### Arithmetic Logic Unit
+More specfically, we'll be creating:
+- not,
+- and,
+- or,
+- xor,
+- mux,
+- dmux. 
 
-## 11.3 Memory Gates
-### Data Flip Flop
-### Bit
-### Register
-### Ram
-### Program Counter
+<!-- TODO: Complete below -->
+<!-- ### Not -->
+<!-- ### And -->
+<!-- ### Or -->
+<!-- ### Xor -->
+<!-- ### Mux -->
+<!-- ### Dmux -->
 
-## 11.4 CPU Architecture
+<!-- ## 11.2 Boolean Arithmetic Gates -->
+<!-- ### Half Adder -->
+<!-- ### Full Adder -->
+<!-- ### Add16 -->
+<!-- ### Increment -->
+<!-- ### Arithmetic Logic Unit -->
 
-## 11.5 Computer Architecture
+<!-- ## 11.3 Memory Gates -->
+<!-- ### Data Flip Flop -->
+<!-- ### Bit -->
+<!-- ### Register -->
+<!-- ### Ram -->
+<!-- ### Program Counter -->
 
-# 12. Emulator
-An eumlator of the computer is also implemented in order to test without having to worry about performance of the underlying logic library.
+<!-- ## 11.4 CPU Architecture -->
 
-Future work is required to be able to swap in the emulator with the actual implementation of the computer.
+<!-- ## 11.5 Computer Architecture -->
 
-# 13. Building a Language
+<!-- # 12. Emulator -->
+<!-- An eumlator of the computer is also implemented in order to test without having to worry about performance of the underlying logic library. -->
 
-# 14. Building an OS
+<!-- Future work is required to be able to swap in the emulator with the actual implementation of the computer. -->
+
+<!-- # 13. Building a Language -->
+
+<!-- # 14. Building an OS -->
