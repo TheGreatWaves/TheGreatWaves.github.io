@@ -4,7 +4,7 @@ A basic framework for prototyping logical circuits with batteries included!
 """
 date = 2024-05-23T11:05:46+07:00
 tags = ['favorited']
-terms = ['C++', 'SFML', 'Computer Architecture', 'Compiler']
+terms = ['C++', 'SFML', 'Compiler', 'Computer Architecture']
 +++
 
 # 1. Introduction

@@ -1,5 +1,7 @@
-{{ range .Params.terms }}
-  <div class="flex w-fit h-fit rounded bg-[#313244] ring-1 ring-gray-300 px-2">
-    {{ . }}
-  </div>
-{{ end }}
+<div style="margin-top: auto;" class="flex flex-wrap gap-2 lg:gap-2 md:gap-2 text-nowrap">
+  {{ range .Params.terms }}
+    <div class="flex w-fit h-fit rounded bg-[#313244] ring-1 ring-gray-300 px-2 text-ellipsis text-sm md:text-base lg:text-base">
+      {{ . }}
+    </div>
+  {{ end }}
+</div>

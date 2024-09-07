@@ -16,22 +16,6 @@
   </div>
 </section>
 
-<!--  About me -->
-<!-- Disabled 
-<section class="flex w-screen h-screen snap-start items-start flex-col">
-  <div class="px-64 h-auto w-screen flex flex-row bg-gradient-to-r from-[#45475a] via-[#585b70] to-[#45475a]">
-    <div class="flex w-1/3 h-full px-16 items-center justify-center">
-      <p class="text-[#cdd6f4] text-4xl">About Me</p>
-    </div>
-    <div class="flex w-2/3 h-full px-12 items-center justify-start ml-16">
-      <p class="text-[#cdd6f4] prose-lg">
-        Hello~! I'm Onami, a programmer with a passion for systems. Like many, I started with game development, but instead of learning how to use engines, I first learnt how to write one - it was just too facisnating. These days I'm dabbling in simulation, emulation and compiler construction - all topics which were tangential to my game engine construction journey.
-      </p>
-    </div>
-  </div>
-</section>
--->
-
 <!--  Projects -->
 <section class="flex w-screen h-full snap-start items-center flex-col gap-4 lg:gap-8 pb-4 lg:pb-8" id="projects">
   <!-- Top bar -->
@@ -57,13 +41,15 @@
             <hr class="h-px bg-gray-200 border-0 dark:bg-gray-700">
 
             <p class="text-sm md:text-base lg:text-base">{{ .Summary }}</p>
-            <!-- <div style="margin-top: auto;" class="pb-5 flex flex-row space-x-2"> -->
-              <!-- {{ range .Params.terms }} -->
-                <!-- <div class="flex w-fit h-fit rounded bg-[#313244] ring-1 ring-gray-300 px-2"> -->
-                  <!-- {{ . }} -->
-                <!-- </div> -->
-              <!-- {{ end }} -->
-            <!-- </div> -->
+
+            <div style="margin-top: auto;" class="pb-2 md:pb-5 lg:pb-5 flex flex-wrap gap-1 lg:gap-2 md:gap-2 text-nowrap">
+              {{ range .Params.terms }}
+                <div class="flex w-fit h-fit rounded bg-[#313244] ring-1 ring-gray-300 px-2 text-ellipsis text-xs md:text-base lg:text-base">
+                  {{ . }}
+                </div>
+              {{ end }}
+            </div>
+ 
           </div>
 
         </a>
