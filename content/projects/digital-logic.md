@@ -285,6 +285,8 @@ More specfically, we'll be creating:
 - mux,
 - dmux. 
 
+While these might not seem like the most exciting components, they are crucial in laying the ground work for creating larger more complex components by providing us with the first level of abstraction!
+
 <!-- TODO: Complete below -->
 <!-- ### Not -->
 <!-- ### And -->
