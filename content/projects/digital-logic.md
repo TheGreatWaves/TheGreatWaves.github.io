@@ -287,6 +287,18 @@ More specfically, we'll be creating:
 
 While these might not seem like the most exciting components, they are crucial in laying the ground work for creating larger more complex components by providing us with the first level of abstraction!
 
+### Not
+The `not` gate simply takes in a signal and return the opposite value.
+{{< highlight zig >}}
+SERIALIZE CHIP not {
+	IN in;
+	OUT out;
+
+	PARTS:
+	nand(a=in, b=in, out=out);
+}
+{{< /highlight >}}
+
 <!-- TODO: Complete below -->
 <!-- ### Not -->
 <!-- ### And -->
