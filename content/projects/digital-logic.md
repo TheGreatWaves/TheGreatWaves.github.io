@@ -298,6 +298,21 @@ SERIALIZE CHIP not {
 	nand(a=in, b=in, out=out);
 }
 {{< /highlight >}}
+### And
+The `and` gate takes in two input and returns positive when both are active.
+{{< highlight zig >}}
+// To implement `and`, we can simply feed our two 
+// inputs into `nand` and negate the output using `not`.
+SERIALIZE CHIP and {
+	IN a, b;
+	OUT out;
+
+	PARTS:
+	nand(a=a, b=b, out=nand_out);
+    not(in=nand_out, out=out);
+}
+{{< /highlight >}}
+
 
 <!-- TODO: Complete below -->
 <!-- ### Not -->
