@@ -327,6 +327,21 @@ SERIALIZE CHIP or {
 	nand(a=tmp1, b=tmp2, out=out);
 }
 {{< /highlight >}}
+### Xor
+The `xor` gate takes in two input and returns positive when both inputs are different.
+{{< highlight zig >}}
+SERIALIZE CHIP xor {
+	IN a, b;
+	OUT out;
+
+	PARTS:
+	nand(a=a,b=b,out=t1);
+	nand(a=a,b=t1,out=t2);
+	nand(a=b,b=t1,out=t3);
+	nand(a=t2, b=t3, out=out);
+}
+{{< /highlight >}}
+
 
 
 <!-- TODO: Complete below -->
