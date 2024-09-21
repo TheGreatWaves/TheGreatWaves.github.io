@@ -341,6 +341,32 @@ SERIALIZE CHIP xor {
 	nand(a=t2, b=t3, out=out);
 }
 {{< /highlight >}}
+### Multiplexor (Mux)
+The `multiplexor` is a gate which takes in many inputs and chooses one to forward. In its most fundamental form, the multiplexor takes in three inputs. Two data bits `a`, `b` and one selection bit `sel`, which is used for selecting between `a` or `b`.
+{{< highlight zig >}}
+// Name: Multiplexor
+//
+// Pick either 'a' or 'b' to forward to 'out',
+// depending on the signal of 'sel'.
+//
+// if (sel == 0):
+//     out = a
+// else
+//     out = b
+//
+SERIALIZE CHIP mux {
+	IN a, b, sel;
+	OUT out;
+
+	PARTS:
+	and(a=sel, b=b, out=t1);
+
+	not(in=sel, out=not_sel);
+	and(a=a, b=not_sel, out=t2);
+
+	or(a=t1, b=t2, out=out);
+}
+{{< /highlight >}}
 
 
 
