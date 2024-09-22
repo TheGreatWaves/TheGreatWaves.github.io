@@ -367,7 +367,31 @@ SERIALIZE CHIP mux {
 	or(a=t1, b=t2, out=out);
 }
 {{< /highlight >}}
+### Demultiplexor (Dmux)
+The `demultiplexor` is the counter part of the multiplexor. Whereas a multiplexor takes in multiple inputs and forward one, a demultiplexor takes in one signal and forwards it to one of its many output ports.
+{{< highlight zig >}}
+// Name: Demultiplexor
+//
+// Channels 'in' into either 'a' or 'b', depending on
+// the signal of 'sel'. By default ('sel' == 0), 'in' 
+// is channeled into 'a'.
+//
+// if (sel == 0):
+//     {a, b} = {in, 0}
+// else
+//     {a, b} = {0, in}
+//
+SERIALIZE CHIP dmux {
+	IN in, sel;
+	OUT a, b;
 
+	PARTS:
+	not(in=sel, out=not_sel);
+	and(a=in, b=not_sel, out=a);
+
+	and(a=in, b=sel, out=b);
+}
+{{< /highlight >}}
 
 
 <!-- TODO: Complete below -->
