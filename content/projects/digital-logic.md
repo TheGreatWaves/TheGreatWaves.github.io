@@ -393,16 +393,16 @@ SERIALIZE CHIP dmux {
 }
 {{< /highlight >}}
 
+## 11.2 Boolean Arithmetic Gates
+Now that our fundamental logical components are complete, we can move onto our next milestone: being able to perform arithmetic. 
 
-<!-- TODO: Complete below -->
-<!-- ### Not -->
-<!-- ### And -->
-<!-- ### Or -->
-<!-- ### Xor -->
-<!-- ### Mux -->
-<!-- ### Dmux -->
+We will be tackling these gates:
+- half adder,
+- full adder,
+- add16,
+- increment,
+- arithmetic logic unit.
 
-<!-- ## 11.2 Boolean Arithmetic Gates -->
 <!-- ### Half Adder -->
 <!-- ### Full Adder -->
 <!-- ### Add16 -->
