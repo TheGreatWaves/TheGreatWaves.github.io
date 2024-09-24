@@ -403,6 +403,20 @@ We will be tackling these gates:
 - increment,
 - arithmetic logic unit.
 
+### Half Adder
+The `half adder` adds two bits together.
+{{< highlight zig >}}
+SERIALIZE CHIP half_adder {
+	IN a, b;
+	OUT sum, carry;
+
+	PARTS:
+	xor(a=a, b=b, out=sum);
+	and(a=a, b=b, out=carry);
+}
+{{< /highlight >}}
+
+
 <!-- ### Half Adder -->
 <!-- ### Full Adder -->
 <!-- ### Add16 -->
