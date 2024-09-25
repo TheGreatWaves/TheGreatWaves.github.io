@@ -415,9 +415,19 @@ SERIALIZE CHIP half_adder {
 	and(a=a, b=b, out=carry);
 }
 {{< /highlight >}}
+### Full Adder
+The `full adder` is similar to the half adder, however, where as the half adder can only add two individual bits, the full adder is able take into account an additional carry bit.
+{{< highlight zig >}}
+SERIALIZE CHIP full_adder {
+	IN a, b, c;
+	OUT sum, carry;
 
-
-<!-- ### Half Adder -->
+	PARTS:
+	half_adder(a=a, b=b, sum=sum_1, carry=carry_1);
+	half_adder(a=sum_1, b=c, sum=sum, carry=carry_2);
+	or(a=carry_2, b=carry_1, out=carry);
+}
+{{< /highlight >}}
 <!-- ### Full Adder -->
 <!-- ### Add16 -->
 <!-- ### Increment -->
