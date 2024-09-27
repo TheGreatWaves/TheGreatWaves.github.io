@@ -461,7 +461,18 @@ CHIP add_16 {
 	full_adder(a=a[15], b=b[15], c=c15, sum=out[15]);
 }
 {{< /highlight >}}
-<!-- ### Increment -->
+### Increment
+The `increment` gate simply takes in a 16-bit value and returns the value incremented by one.
+{{< highlight zig >}}
+CHIP inc_16 {
+	IN in[16];
+	OUT out[16];
+
+	PARTS:
+	true(in=in[0], out=one);
+	add_16(a=in, b[0]=one, out=out);
+}
+{{< /highlight >}}
 <!-- ### Arithmetic Logic Unit -->
 
 <!-- ## 11.3 Memory Gates -->
