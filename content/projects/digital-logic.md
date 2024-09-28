@@ -473,7 +473,10 @@ CHIP inc_16 {
 	add_16(a=in, b[0]=one, out=out);
 }
 {{< /highlight >}}
-<!-- ### Arithmetic Logic Unit -->
+### Arithmetic Logic Unit
+The `ALU` is a central component inside the `CPU` which is responsible for carrying out arithmetic and logical operations.
+
+
 
 <!-- ## 11.3 Memory Gates -->
 <!-- ### Data Flip Flop -->
