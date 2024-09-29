@@ -476,6 +476,8 @@ CHIP inc_16 {
 ### Arithmetic Logic Unit
 The `ALU` is a central component inside the `CPU` which is responsible for carrying out arithmetic and logical operations.
 
+Here, we are implementing the `Hack ALU` from the `nand2tetris` course. The ALU computes a given function on two given 16-bit data inputs and outputs the result. The function which is carried out, is selected from a list of predefined arithmetic functions (add, subtract, multiply, etc.) and logical functions (and, or, xor, etc.).
+
 
 
 <!-- ## 11.3 Memory Gates -->
