@@ -477,7 +477,54 @@ CHIP inc_16 {
 The `ALU` is a central component inside the `CPU` which is responsible for carrying out arithmetic and logical operations.
 
 Here, we are implementing the `Hack ALU` from the `nand2tetris` course. The ALU computes a given function on two given 16-bit data inputs and outputs the result. The function which is carried out, is selected from a list of predefined arithmetic functions (add, subtract, multiply, etc.) and logical functions (and, or, xor, etc.).
+{{< highlight zig >}}
+CHIP alu {
+	IN x[16], y[16], // Two 16-bit operands.
+	   zx,           // Zero the x input.
+	   nx,           // Negate the x input.
+	   zy,           // Zero the y input.
+	   ny,           // Negate the y input.
+	   f,            // 1 for Add, 0 for And
+	   no;           // Negate the output.
 
+	OUT out[16],     // 16-bit output.
+		zr,          // out == 0
+		ng;          // out < 0
+
+	PARTS:
+	// X
+
+	// Zero x.
+	mux_16(a=x,  sel=zx, out=zero_x);
+
+	// Not x.
+	not_16(in=zero_x, out=negated_x);
+	mux_16(a=zero_x, b=negated_x, sel=nx, out=final_x);
+
+	// Y
+
+	// Zero y.
+	mux_16(a=y,  sel=zy, out=zero_y);
+
+	// Not x.
+	not_16(in=zero_y, out=negated_y);
+	mux_16(a=zero_y, b=negated_y, sel=ny, out=final_y);
+
+	// Choose function (1 -> add, 0 -> and)
+	and_16(a=final_x, b=final_y, out=x_and_y);
+	add_16(a=final_x, b=final_y, out=x_add_y);
+	mux_16(a=x_and_y, b=x_add_y, sel=f, out=fxy);
+
+	// Negate out.
+	not_16(in=fxy, out=not_fxy);
+	mux_16(a=fxy, b=not_fxy, sel=no, out=out, 
+		out[15]=ng); // out < 0
+
+	// out = 0
+	or_16_way(in=out, out=tmp);
+	not(in=tmp, out=zr);
+}
+{{< /highlight >}}
 
 
 <!-- ## 11.3 Memory Gates -->
