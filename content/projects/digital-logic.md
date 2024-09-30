@@ -527,7 +527,8 @@ CHIP alu {
 {{< /highlight >}}
 
 
-<!-- ## 11.3 Memory Gates -->
+## 11.3 Memory Gates
+Being able to perform computation is great, however it's not exactly useful unless we have someway of storing the result. For this reason, our next goal is to build the memory component of our computer: the RAM.
 <!-- ### Data Flip Flop -->
 <!-- ### Bit -->
 <!-- ### Register -->
