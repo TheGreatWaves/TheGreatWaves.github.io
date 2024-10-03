@@ -476,7 +476,23 @@ CHIP inc_16 {
 ### Arithmetic Logic Unit
 The `ALU` is a central component inside the `CPU` which is responsible for carrying out arithmetic and logical operations.
 
-Here, we are implementing the `Hack ALU` from the `nand2tetris` course. The ALU computes a given function on two given 16-bit data inputs and outputs the result. The function which is carried out, is selected from a list of predefined arithmetic functions (add, subtract, multiply, etc.) and logical functions (and, or, xor, etc.).
+Here, we are implementing the `Hack ALU` from the `nand2tetris` course. The ALU computes a given function on two 16-bit data inputs and outputs the result along with flags which describes the result. The function which is carried out, is selected from a list of predefined arithmetic functions (add, subtract) and logical functions (and, or).
+
+> In the implementation of the ALU below, you can see some new gates: `mux_16`, `not_16` and `and_16`. These are simply 16-bit versions of the fundamental gates which we have covered so far. They can all be trivially implemented in the same manner. For reference, here is the implementation of `not_16`:
+>{{< highlight zig >}}
+SERIALIZE CHIP not_16 {
+	IN in[16];
+	OUT out[16];
+
+	PARTS:
+	not(in=in[0], out=out[0]);
+	not(in=in[1], out=out[1]);
+	not(in=in[2], out=out[2]);
+	// ...
+	not(in=in[15], out=out[15]);
+}{{< /highlight >}}
+
+
 {{< highlight zig >}}
 CHIP alu {
 	IN x[16], y[16], // Two 16-bit operands.
