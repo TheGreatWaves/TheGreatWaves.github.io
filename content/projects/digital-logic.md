@@ -552,7 +552,9 @@ In this section, we will be building these gates:
 - ram,
 - program counter.
 
-<!-- ### Data Flip Flop -->
+### Data Flip Flop
+The `DFF` is our first stateful gate! The DFF takes in two input bits and outputs a single bit. It takes in an activation bit and a signal bit. When the activation bit is active, the value of the signal bit is set as the output. 
+
 <!-- ### Bit -->
 <!-- ### Register -->
 <!-- ### Ram -->
