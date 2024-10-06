@@ -555,7 +555,18 @@ In this section, we will be building these gates:
 ### Data Flip Flop
 The `DFF` is our first stateful gate! The DFF takes in two input bits and outputs a single bit. It takes in an activation bit and a signal bit. When the activation bit is active, the value of the signal bit is set as the output. This gate is built-in rather than implemented via HDL because there are signal propagation dependency complications when simulated.
 
-<!-- ### Bit -->
+### Bit
+The `bit` gate is basically a DFF extended to take into account clock signals. Clock signals are important in our system because it allows for synchronization between components.
+{{< highlight zig >}}
+CHIP bit {
+	IN in, load, clock;
+	OUT out;
+
+	PARTS:
+	mux(a=dff_out, b=in, out=mux_out, sel=load);
+	dff(in=mux_out, clock=clock, out=out, out=dff_out);
+}
+{{< /highlight >>}}
 <!-- ### Register -->
 <!-- ### Ram -->
 <!-- ### Program Counter -->
