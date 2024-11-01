@@ -566,7 +566,7 @@ CHIP bit {
 	mux(a=dff_out, b=in, out=mux_out, sel=load);
 	dff(in=mux_out, clock=clock, out=out, out=dff_out);
 }
-{{< /highlight >>}}
+{{< /highlight >}}
 <!-- ### Register -->
 <!-- ### Ram -->
 <!-- ### Program Counter -->
