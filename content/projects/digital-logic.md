@@ -567,7 +567,26 @@ CHIP bit {
 	dff(in=mux_out, clock=clock, out=out, out=dff_out);
 }
 {{< /highlight >}}
-<!-- ### Register -->
+
+### Register
+As we know, a `register` is simply a storage for holding a single value. In terms of hardware, it's simply an array of bits, a component which we've already covered. 
+> See how it's all coming together ?
+
+As expected, here is what the implementation of a 16-bit register would look like, no surprises here:
+{{< highlight zig >}}
+CHIP register {
+	IN in[16], load, clock;
+	OUT out[16];
+
+	PARTS:
+	bit(in=in[0],  load=load, clock=clock, out=out[0]);
+	bit(in=in[1],  load=load, clock=clock, out=out[1]);
+	bit(in=in[2],  load=load, clock=clock, out=out[2]);
+	// ...
+	bit(in=in[15], load=load, clock=clock, out=out[15]);
+}
+{{< /highlight >}}
+
 <!-- ### Ram -->
 <!-- ### Program Counter -->
 
