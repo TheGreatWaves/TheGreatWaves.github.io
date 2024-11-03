@@ -587,7 +587,9 @@ CHIP register {
 }
 {{< /highlight >}}
 
-<!-- ### Ram -->
+### RAM
+Here is our most important memory unit, the `RAM` (random access memory). For simplicity, you can think of the RAM as an extension of the register. Whereas registers hold bits, RAMs hold registers.
+
 <!-- ### Program Counter -->
 
 <!-- ## 11.4 CPU Architecture -->
