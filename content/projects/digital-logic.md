@@ -619,7 +619,13 @@ CHIP ram_8 {
                  e=re, f=rf, g=rg, h=rh);
 }
 {{< /highlight >}}
-<!-- ### Program Counter -->
+### Program Counter
+Computers need to keep track of which instruction to execute next. This is achieved by keeping a pointer to the next instruction and this pointer is referred to as the `program counter`. 
+
+The program counter is nothing more than a simple register which holds the address of the instruction to be executed. Additionally, it supports three basic operations: 
+- **increment** (for fetching next instruction), 
+- **load** (for 'jumping', fetching some other instruction), 
+- **reset** (for fetching first instruction).
 
 <!-- ## 11.4 CPU Architecture -->
 
