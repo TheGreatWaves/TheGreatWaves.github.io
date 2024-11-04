@@ -588,8 +588,37 @@ CHIP register {
 {{< /highlight >}}
 
 ### RAM
-Here is our most important memory unit, the `RAM` (random access memory). For simplicity, you can think of the RAM as an extension of the register. Whereas registers hold bits, RAMs hold registers.
+Behold our most important memory unit, the `RAM` (random access memory). For simplicity, you can think of the RAM as an extension of the register. Whereas registers hold bits, RAMs hold registers. It's really that simple !
 
+> It's not.
+
+Okay, well there is one main difference which gets overlooked by that simplification, it's the fact that unlike a register, the RAM does not return all of its contents, it has to specify the register which it wants to read or write.
+{{< highlight zig >}}
+CHIP ram_8 {
+	IN in[16], address[3], load, clock;
+	OUT out[16];
+
+	PARTS:
+	dmux_8_way(in=load,
+	           sel=address,
+	           a=a, b=b, c=c, d=d,
+	           e=e, f=f, g=g, h=h);
+
+	register(in=in, load=a, clock=clock, out=ra);
+	register(in=in, load=b, clock=clock, out=rb);
+	register(in=in, load=c, clock=clock, out=rc);
+	register(in=in, load=d, clock=clock, out=rd);
+	register(in=in, load=e, clock=clock, out=re);
+	register(in=in, load=f, clock=clock, out=rf);
+	register(in=in, load=g, clock=clock, out=rg);
+	register(in=in, load=h, clock=clock, out=rh);
+
+	mux_8_way_16(out=out,
+                 sel=address,
+                 a=ra, b=rb, c=rc, d=rd, 
+                 e=re, f=rf, g=rg, h=rh);
+}
+{{< /highlight >}}
 <!-- ### Program Counter -->
 
 <!-- ## 11.4 CPU Architecture -->
