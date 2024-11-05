@@ -627,6 +627,10 @@ The program counter is nothing more than a simple register which holds the addre
 - **load** (for 'jumping', fetching some other instruction), 
 - **reset** (for fetching first instruction).
 
+> In my simulator, the program counter is built-in instead of being implemented via HDL because there was some issue with signal synchronization which kept messing up resetting/loading/incrementing.
+>
+> I could've probably fixed the simulator but I decided to move on forward because I already knew that I would eventually have to replace most of the components with their built-in counterpart (unless they're serializable) for better performance anyways.
+
 <!-- ## 11.4 CPU Architecture -->
 
 <!-- ## 11.5 Computer Architecture -->
