@@ -588,17 +588,26 @@ CHIP register {
 {{< /highlight >}}
 
 ### RAM
-Behold our most important memory unit, the `RAM` (random access memory). For simplicity, you can think of the RAM as an extension of the register. Whereas registers hold bits, RAMs hold registers. It's really that simple !
+`RAM` (random access memory) is often referred to as the main memory of a computer. It provides temporary storage, allowing for the CPU to read from and write to, enabling it to be useful.
+
+For simplicity, you can think of the RAM as an extension of the register. Whereas registers hold bits, RAMs hold registers. It's really that simple !
 
 > It's not.
 
-Okay, well there is one main difference which gets overlooked by that simplification, it's the fact that unlike a register, the RAM does not return all of its contents, it has to specify the register which it wants to read or write.
+Okay, well there is one main difference which gets overlooked by that simplification, it's the fact that unlike a register, the RAM does not return all of its contents, it has to specify the register which it wants to read from or write to.
 {{< highlight zig >}}
 CHIP ram_8 {
 	IN in[16], address[3], load, clock;
 	OUT out[16];
 
 	PARTS:
+	// = WRITING =
+	// Notice how each register below is assigned a unique 
+	// load channel (a-h). This demux is for sending the
+	// load input signal into one of those channels.
+	//
+	// If the load signal is active for a given register,
+	// it will take in the value of in[16].
 	dmux_8_way(in=load,
 	           sel=address,
 	           a=a, b=b, c=c, d=d,
@@ -613,6 +622,9 @@ CHIP ram_8 {
 	register(in=in, load=g, clock=clock, out=rg);
 	register(in=in, load=h, clock=clock, out=rh);
 
+	// = READING =
+	// Use `address` as a selector and return the
+	// specified register's value.
 	mux_8_way_16(out=out,
                  sel=address,
                  a=ra, b=rb, c=rc, d=rd, 
