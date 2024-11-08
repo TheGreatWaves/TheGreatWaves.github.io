@@ -595,6 +595,8 @@ For simplicity, you can think of the RAM as an extension of the register. Wherea
 > It's not.
 
 Okay, well there is one main difference which gets overlooked by that simplification, it's the fact that unlike a register, the RAM does not return all of its contents, it has to specify the register which it wants to read from or write to.
+
+In the implementation below, `dmux_8_way` and `mux_8_way_16` are utilized to realize the ability to address specific registers, the explanation for each is explained in a comment preceding their declaration.
 {{< highlight zig >}}
 CHIP ram_8 {
 	IN in[16], address[3], load, clock;
