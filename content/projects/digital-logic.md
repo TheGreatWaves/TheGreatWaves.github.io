@@ -645,7 +645,8 @@ The program counter is nothing more than a simple register which holds the addre
 >
 > I could've probably fixed the simulator but I decided to move on forward because I already knew that I would eventually have to replace most of the components with their built-in counterpart (unless they're serializable) for better performance anyways.
 
-<!-- ## 11.4 CPU Architecture -->
+## 11.4 CPU Architecture
+In this section we will be building the `central processing unit` for our computer. Since we are following the nand2tetris course, we will be building a CPU which implements the **Hack** instruction set.
 
 <!-- ## 11.5 Computer Architecture -->
 
