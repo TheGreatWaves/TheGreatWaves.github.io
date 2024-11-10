@@ -648,6 +648,14 @@ The program counter is nothing more than a simple register which holds the addre
 ## 11.4 CPU Architecture
 In this section we will be building the `central processing unit` for our computer. Since we are following the nand2tetris course, we will be building a CPU which implements the **Hack** instruction set.
 
+The CPU has only 4 main components:
+- data register,
+- address register,
+- program counter,
+- ALU.
+
+As you can see, they are components which we have already made, meaning that the implementation of our CPU will be mainly dealing with wiring -- thankfully !
+
 <!-- ## 11.5 Computer Architecture -->
 
 <!-- # 12. Emulator -->
